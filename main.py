@@ -87,6 +87,23 @@ def addTone(s, n):
             return 'o̍'
         if n == 9:
             return 'ŏ'
+    elif s == 'n':
+        if n == 1:
+            return 'n'
+        if n == 2:
+            return 'ń'
+        if n == 3:
+            return 'ǹ'
+        if n == 4:
+            return 'n'
+        if n == 5:
+            return 'n̂'
+        if n == 7:
+            return 'n̄'
+        if n == 8:
+            return 'n̍'
+        if n == 9:
+            return 'n̋'
 
 
 def compChar(s):
@@ -101,19 +118,22 @@ a = input()
 
 def main(d):
     d = re.split('(\d+)', d)
-    d_vowel = re.findall(r'[aiueo]', d[0])
-    d_notVowel = re.split(r'[aiueo]', d[0])
+    d_vowel = re.findall(r'[aiueon]', d[0])
+    d_notVowel = re.split(r'[aiueon]', d[0])
     if len(d) != 1:
         if d[1] != '':
             if len(d_vowel) > 1:
-                d_vowel[1] = addTone(d_vowel[1], int(d[1]))
+                if d_vowel[1] != 'n':
+                    d_vowel[1] = addTone(d_vowel[1], int(d[1]))
+                else:
+                    d_vowel[0] = addTone(d_vowel[0], int(d[1]))
             else:
                 d_vowel[0] = addTone(d_vowel[0], int(d[1]))
         d_notVowel.insert(1, compChar(d_vowel))
     else:
         d_notVowel.insert(1, compChar(d_vowel))
 
-    print(compChar(d_notVowel))
+    return compChar(d_notVowel)
 
 
-main(a)
+print(main(a))
